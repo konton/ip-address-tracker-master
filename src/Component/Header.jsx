@@ -72,7 +72,7 @@ export default function Header() {
                 <Searching search={searchHandler}/>
             </div>
             <Ipinfo address={ipDetail}/>
-            {fetchUrl.isSearch?  <Map lat={ipDetail.lat} lng={ipDetail.lng} zoom={12}/>: <Map lat={49} lng={2} zoom={2}/> }
+            {fetchUrl.isSearch?  <Map lat={ipDetail.lat} lng={ipDetail.lng} zoom={12}/>: null }
            
         </div>
     )
