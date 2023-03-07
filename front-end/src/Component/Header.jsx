@@ -5,9 +5,6 @@ import Map from './Map';
 
 
 export default function Header() {
-    // const [isSearch, setIsSearch] = useState(false);
-    // const [userIp, setUserIp] = useState("");
-    const url = "https://geo.ipify.org/api/v2/country,city?apiKey=at_4I8EuUR3buRJxvbw2lWD6jlkfikcm&ipAddress="
     const [ipDetail, setIpDetail] = useState({
         ip: "",
         lat: "",
@@ -34,20 +31,26 @@ export default function Header() {
 
 
     const searchHandler = (address) => {
-        console.log(address);
         dispatchFetchUrl({ type: 'IP_ADDRESS', val: address })
         // setUserIp(address);
     }
 
     useEffect(() => {
-        fetchIp(url + fetchUrl.value)
+        fetchIp(fetchUrl.value)
         console.log("FETCH USE EFFECT");
     }, [fetchUrl.isClick]);
 
 
-    const fetchIp = async (address) => {
-        const response = await fetch(address);
+    const fetchIp = async (addresser) => {
+        console.log(addresser)
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ address: addresser })
+        }
+        const response = await fetch('http://localhost:3001/getip', requestOptions);
         const data = await response.json();
+        console.log("HI")
         const { ip, isp, location } = data
 
         setIpDetail({
